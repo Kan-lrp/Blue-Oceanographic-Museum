@@ -1,0 +1,738 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>海洋趣味小知识</title>
+    <link href="Content/bootstrap.css" rel="stylesheet" />
+    <script src="Scripts/jquery-3.4.1.min.js"></script>
+    <script src="Scripts/jquery-3.4.1.min.js"></script>
+    <script src="Scripts/bootstrap.min.js"></script>
+    <link href="CSS/T1 (1).css" rel="stylesheet" />
+    <link href="CSS/home.css" rel="stylesheet" />
+    <link href="CSS/news.css" rel=stylesheet>
+    <script type=text/javascript>
+        window.startTime = Date.now();
+    </script>
+    <script>
+        ! function (e, n) {
+            "object" == typeof exports && "undefined" != typeof module ? module.exports = n() : "function" ==
+                typeof define && define.amd ? define(n) : (e = e || self).__spyHead = n()
+        }(this, function () {
+            "use strict";
+            var T = {
+                conf: {},
+                winerrors: [],
+                errorDestroy: function () {},
+                observerDestroy: function () {},
+                entryMap: {},
+                init: function (e) {
+                    this.conf = e
+                },
+                send: function (e, n) {
+                    e.type = e.type || "except";
+                    var r = this.conf;
+                    n = n || r.logServer;
+                    var o = "".concat(n, "?pid=").concat(r.pid, "&lid=").concat(r.lid, "&ts=").concat(Date
+                        .now()) + "&type=".concat(e.type, "&group=").concat(e.group, "&info=").concat(
+                        encodeURIComponent(JSON.stringify(e.info)));
+                    e.dim && (o += "&dim=" + encodeURIComponent(JSON.stringify(e.dim)));
+                    var t = new Image;
+                    t.src = o, t.onload = t.onerror = function () {
+                        t = null
+                    }
+                }
+            };
+
+            function n(e) {
+                var g = e.resourceError || {},
+                    y = e.jsError || {},
+                    w = Math.random() < (y.sample ? y.sample : 0),
+                    h = Math.random() < (g.sample ? g.sample : 0),
+                    E = T.winerrors;
+
+                function n(e) {
+                    try {
+                        var n = e.target,
+                            r = {
+                                info: {},
+                                dim: {},
+                                group: ""
+                            },
+                            o = r.info,
+                            t = e.srcElement,
+                            i = navigator.connection || {};
+                        if (o.downlink = i.downlink, o.effectiveType = i.effectiveType, o.rtt = i.rtt, o
+                            .deviceMemory = navigator.deviceMemory || 0, o.hardwareConcurrency = navigator
+                            .hardwareConcurrency || 0, t === window) {
+                            r.group = y.group;
+                            var a = e.error || {};
+                            if (o.msg = e.message, o.file = e.filename, o.ln = e.lineno, o.col = e.colno, o.stack =
+                                (a.stack || "").split("\n").slice(0, 3).join("\n"), -1 !== o.msg.indexOf(
+                                    "MODULE_TIMEOUT")) {
+                                var c = o.msg.match(/^.*Hang:(.*); Miss:(.*)/);
+                                c && c[2] && (o.msg = "MODULE_TIMEOUT for miss:" + c[2])
+                            }
+                            for (var s = [], f = 0; f < T.winerrors.length; f++) {
+                                var u = T.winerrors[f],
+                                    d = 1 < u.count ? "(".concat(u.count, ")") : "";
+                                s.push(d + u.msg)
+                            }
+                            o.hisErrors = s.join("----");
+                            var p = !0;
+                            y.handler && (p = y.handler(r)), !1 !== p && w && T.send(r)
+                        } else {
+                            r.group = g.group, r.dim.type = t.tagName.toLowerCase();
+                            var m = t.src || t.href;
+                            o.msg = m || "unknown load eror", n && "IMG" === n.tagName && (o.xpath = function (e) {
+                                for (var n = []; e && 1 === e.nodeType && e !== e.parentNode && (n.push(e
+                                        .tagName.toLowerCase()), e !== document.body);) e = e.parentNode;
+                                return {
+                                    xpath: n.join("<")
+                                }
+                            }(n).xpath);
+                            var l = !0;
+                            g.handler && (l = g.handler(r)), !1 !== l && h && T.send(r)
+                        }
+                        if (0 < E.length) {
+                            var v = E[E.length - 1];
+                            if (o.msg === v.msg) return void(v.count += v.count || 0)
+                        }
+                        E.push(o)
+                    } catch (e) {
+                        console.error(e)
+                    }
+                }
+                window.addEventListener("error", n, !0), T.errorDestroy = function () {
+                    window.removeEventListener("error", n, !0), T.winerrors = null
+                }
+            }
+
+            function r(e) {
+                var r = e.whiteScreenError || {},
+                    o = r.handler,
+                    t = r.selector,
+                    i = r.subSelector,
+                    n = r.timeout || 6e3;
+                Math.random() < (r.sample ? r.sample : 0) && setTimeout(function () {
+                    var e = {
+                        group: r.group,
+                        info: {
+                            msg: "",
+                            netTime: function () {
+                                if (!window.performance) return !1;
+                                var e = window.performance.timing;
+                                return "&dns=".concat(e.domainLookupEnd - e.domainLookupStart) +
+                                    "&tcp=".concat(e.connectEnd - e.connectStart) + "&requestTime="
+                                    .concat(e.responseStart - e.requestStart) + "&resoneTime="
+                                    .concat(e.responseEnd - e.responseStart)
+                            }(),
+                            hisErrors: function () {
+                                if (!T.winerrors) return !1;
+                                for (var e = T.winerrors, n = [], r = 0; r < e.length; r++) {
+                                    var o = (e[r].stack || "").split("\n")[0];
+                                    n.push("(".concat(r, ")").concat(o || e[r].msg))
+                                }
+                                return n.join(";;")
+                            }(),
+                            deviceInfo: function () {
+                                var e = {},
+                                    n = navigator.connection || {};
+                                return e.downlink = n.downlink, e.effectiveType = n.effectiveType, e
+                                    .rtt = n.rtt, e.deviceMemory = navigator.deviceMemory || 0, e
+                                    .hardwareConcurrency = navigator.hardwareConcurrency || 0, e
+                            }()
+                        }
+                    };
+                    if (function () {
+                            var e = document.querySelector(t);
+                            return !e || (!e.querySelector(i) || e.clientHeight < 2 * window.innerHeight /
+                                3)
+                        }()) {
+                        e.info.msg = "WhiteScren Error";
+                        var n = !0;
+                        o && (n = o(e)), !1 !== n && e.info.msg && T && T.send(e)
+                    }
+                }, n)
+            }
+            return T.init = function (e) {
+                e.logServer || (e.logServer = "https://sp1.baidu.com/5b1ZeDe5KgQFm2e88IuM_a/mwb2.gif"), n(this
+                        .conf = e),
+                    function () {
+                        if (window.PerformanceObserver) {
+                            var e = new window.PerformanceObserver(function (e) {
+                                for (var n = T.entryMap, r = e.getEntries(), o = 0; o < r.length; o++) {
+                                    var t = r[o];
+                                    n[t.entryType] || (n[t.entryType] = []), n[t.entryType].push(t)
+                                }
+                            });
+                            T.observerDestroy = function () {
+                                e.disconnect()
+                            };
+                            try {
+                                e.observe({
+                                    entryTypes: ["longtask", "layout-shift", "first-input",
+                                        "largest-contentful-paint"
+                                    ]
+                                })
+                            } catch (e) {}
+                        }
+                    }(), r(e)
+            }, window.__spyclientConf && T.init(window.__spyclientConf), T
+        });
+    </script>
+    <script>
+        window.isLogin = '0';
+        window.__spyHead && window.__spyHead.init({
+            pid: '10_75',
+            jsError: {
+                group: 'landingpc_js',
+                sample: 0.1,
+                dim: {
+                    isLogin: window.isLogin
+                }
+            },
+            whiteScreenError: {
+                group: 'landingpc_whiteScreen',
+                sample: 1,
+                dim: {
+                    isLogin: window.isLogin
+                },
+                selector: 'body',
+                subSelector: '#ssr-content',
+                timeout: 3000
+            }
+        });
+        window.whiteScreenTime = Date.now();
+    </script>
+
+</head>
+
+<body>
+    <div id="headmeun" class="headmeun light">
+        <div class="centers">
+            <div id="logo">
+                <img src="Images/Logo.png" width="55" height="55" />
+            </div>
+            <div id="meun">
+                <ul>
+                    <li>
+                        <a href="index.html">首页</a>
+                        <img src="Images/water.png" width="45" height="10" class="hover1" />
+                    </li>
+                    <li>
+                        <a href="Evail.html">走近海博 </a>
+                        <img src="Images/water.png" width="80" height="10" class="hover" />
+                    </li>
+                    <li>
+                        <a href="order.html">参观服务</a>
+                        <img src="Images/water.png" width="80" height="10" class="hover1" />
+
+                    </li>
+                    <li>
+                        <a href="Exhibits.html">陈列展览</a>
+                        <img src="Images/water.png" width="80" height="10" class="hover1" />
+                    </li>
+                    <li>
+                        <a href="Haiboroom.html">海博讲堂</a>
+                        <img src="Images/water.png" width="80" height="10" class="hover1" />
+                    </li>
+                    <li>
+                        <a href="News.html">海博新闻</a>
+                        <img src="Images/water.png" width="80" height="10" class="hover1" />
+                    </li>
+                </ul>
+            </div>
+            <div id="function">
+                <ul>
+                    <li class="glyphicon glyphicon-search"></li>
+
+
+                    <a href="login.html">
+                        <li class="glyphicon glyphicon-user"></li>
+                    </a>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <div id=app>
+        <div id=ssr-content-wrapper>
+            <div id="ssr-content">
+                <div class="app-module_contentWrapper_2jN0Z">
+                    <div class="app-module_headerWrapper_3tNyU Moenv">
+                        <div class="index-module_headerWrap_j_uQR">
+                            <div class="index-module_articleTitle_28fPT ">关于海洋动物的趣味小知识</div>
+                        </div>
+                    </div>
+                    <div class="app-module_articleWrapper_q1J1i">
+                        <div class="app-module_leftSection_EaCvy">
+                            <div class="index-module_articleWrap_2Zphx ">
+                                
+                                <div class="index-module_textWrap_3ygOc ">
+                                    <p>
+                                        <span class="bjh-hr"></span>
+                                        <span class="bjh-h3">#珊瑚不是石头</span>
+                                    </p>
+                                </div>
+                                <div class="index-module_textWrap_3ygOc ">
+                                    <p>
+                                        <span
+                                            class="bjh-p">珊瑚不是五颜六色的石头，也不是植物！它是刺细胞动物门整整一个珊瑚纲的好几千种动物的总称，它们大多数生活在热带到亚热带40米以内的浅海区，并不是深海~</span>
+                                    </p>
+                                </div>
+                                <div class="index-module_mediaWrap_213jB ">
+                                    <div class="index-module_contentImg_JmmC0">
+                                        <img src="Envir_Image/22.jpeg" width="640" class="index-module_large_1mscr">
+                                    </div>
+                                </div>
+                                <div class="index-module_textWrap_3ygOc ">
+                                    <p>
+                                        <span
+                                            class="bjh-p">保护珊瑚不仅仅是动物，而是由珊瑚虫、单细胞共生藻类、共生细菌、共生真菌，甚至包括共生虾、共生蟹在内的一个复合共生体。护珊瑚的意义不仅是保护珊瑚本身，而是保护整个珊瑚礁生态系统。</span>
+                                    </p>
+                                </div>
+                                <div class="index-module_mediaWrap_213jB ">
+                                    <div class="index-module_contentImg_JmmC0">
+                                        <img src="Envir_Image/33.jpeg" width="640" class="index-module_large_1mscr">
+                                    </div>
+                                </div>
+                                <div class="index-module_textWrap_3ygOc ">
+                                    <p>
+                                        <span class="bjh-h3">#小丑鱼会变性</span>
+                                    </p>
+                                </div>
+                                <div class="index-module_textWrap_3ygOc ">
+                                    <p>
+                                        <span
+                                            class="bjh-p">刚孵化的小丑鱼既不是雌性也不是雄性。它们最初是无性别状态，随着生长过程逐渐转化为雄性，再变成雌性，这个过程的不可逆转的，且与环境有关。</span>
+                                    </p>
+                                </div>
+                                <div class="index-module_mediaWrap_213jB ">
+                                    <div class="index-module_contentImg_JmmC0">
+                                        <img src="Envir_Image/44.jpeg" width="640" class="index-module_large_1mscr">
+                                    </div>
+                                </div>
+                                <div class="index-module_textWrap_3ygOc ">
+                                    <p>
+                                        <span
+                                            class="bjh-p">当一群雄性小丑鱼聚集在一起，它们之中没有雌性小丑鱼，这时，就会有一条占据统治地位的雄性小丑鱼，变成雌性小丑鱼；</span>
+                                    </p>
+                                </div>
+                                <div class="index-module_mediaWrap_213jB ">
+                                    <div class="index-module_contentImg_JmmC0">
+                                        <img src="Envir_Image/55.jpeg" width="640" class="index-module_large_1mscr">
+                                    </div>
+                                </div>
+                                <div class="index-module_textWrap_3ygOc ">
+                                    <p>
+                                        <span class="bjh-p">
+                                            如果鱼群中已经有一条成熟的雌性小丑鱼且占领了统治地位，环境中又缺少雄性小丑鱼时，无性别小丑鱼会变成雄性；
+                                        </span>
+                                    </p>
+                                </div>
+                                <div class="index-module_textWrap_3ygOc ">
+                                    <p>
+                                        <span class="bjh-p">那如果鱼群中的雌雄小丑鱼们已经配对完成了怎么办？剩下的小丑鱼只能保持无性别状态，一直当单身鱼一直爽~</span>
+                                    </p>
+                                </div>
+                                <div class="index-module_mediaWrap_213jB ">
+                                    <div class="index-module_contentImg_JmmC0">
+                                        <img src="Envir_Image/66.jpeg" width="580" class="index-module_large_1mscr">
+                                    </div>
+                                </div>
+                                <div class="index-module_textWrap_3ygOc ">
+                                    <p>
+                                        <span
+                                            class="bjh-p">简单来说，鱼群中的“王”是雌性，“后”是雄性，其余的全是无性，但也有严格的等级制度。“王”消失后，“后”会成为新一代的“王”，性别转化为雌性，等级最高的无性小丑鱼变成“后”，性别转化为雄性~</span>
+                                    </p>
+                                </div>
+                                <div class="index-module_textWrap_3ygOc ">
+                                    <p>
+                                        <span class="bjh-p">真是一群乱七八蕉的小鱼儿……</span>
+                                    </p>
+                                </div>
+                                <div class="index-module_mediaWrap_213jB ">
+                                    <div class="index-module_contentImg_JmmC0">
+                                        <img src="Envir_Image/77.jpeg" width="440" class="index-module_normal_Bq4DA">
+                                    </div>
+                                </div>
+                                <div class="index-module_textWrap_3ygOc ">
+                                    <p>
+                                        <span class="bjh-h3">#鲨鱼害怕海豚</span>
+                                    </p>
+                                </div>
+                                <div class="index-module_textWrap_3ygOc ">
+                                    <p>
+                                        <span class="bjh-p">别看鲨鱼个头比海豚大，但是他们害怕海豚。为什么呢？</span>
+                                    </p>
+                                </div>
+                                <div class="index-module_mediaWrap_213jB ">
+                                    <div class="index-module_contentImg_JmmC0">
+                                        <img src="Envir_Image/88.jpeg" width="640" class="index-module_large_1mscr">
+                                    </div>
+                                </div>
+                                <div class="index-module_textWrap_3ygOc ">
+                                    <p>
+                                        <span
+                                            class="bjh-p">海豚顶球是一种本能的习惯。每只海豚宝宝小的时候，海豚父母为了教会宝宝浮出水面呼吸，就会用嘴把它顶出水面，有时候在附近遇到鲨鱼，海豚担心鲨鱼窒息，便会好心地顶他们一下。但久而久之鲨鱼就怕了海豚……</span>
+                                    </p>
+                                </div>
+                                <div class="index-module_mediaWrap_213jB ">
+                                    <div class="index-module_contentImg_JmmC0">
+                                        <img src="Envir_Image/99.jpeg" width="187" class="index-module_normal_Bq4DA">
+                                    </div>
+                                </div>
+                                <div class="index-module_textWrap_3ygOc ">
+                                    <p>
+                                        <span class="bjh-p">小鲨鱼，你是否有很多问号？</span>
+                                    </p>
+                                </div>
+                                <div class="index-module_textWrap_3ygOc ">
+                                    <p>
+                                        <span class="bjh-h3">#章鱼：海洋界死肥宅</span>
+                                    </p>
+                                </div>
+                                <div class="index-module_textWrap_3ygOc ">
+                                    <p>
+                                        <span
+                                            class="bjh-p">章鱼能变色伪装，能舞文弄墨，然而就是这么流啤的一种动物，他最大的追求是有个像样的好房子，最大的爱好是，窝在家里不出门。</span>
+                                    </p>
+                                </div>
+                                <div class="index-module_mediaWrap_213jB ">
+                                    <div class="index-module_contentImg_JmmC0">
+                                        <img src="Envir_Image/12.gif" width="400" class="index-module_normal_Bq4DA">
+                                    </div>
+                                </div>
+                                <div class="index-module_textWrap_3ygOc ">
+                                    <p>
+                                        <span class="bjh-p">是不是像极了现在正躺在被窝里刷手机的你！</span>
+                                    </p>
+                                </div>
+                                <div class="index-module_mediaWrap_213jB ">
+                                    <div class="index-module_contentImg_JmmC0">
+                                        <img src="Envir_Image/13.jpeg" width="499" class="index-module_normal_Bq4DA">
+                                    </div>
+                                </div>
+                                <div class="index-module_textWrap_3ygOc ">
+                                    <p>
+                                        <span class="bjh-h3"># 鲸鱼的屁</span>
+                                    </p>
+                                </div>
+                                <div class="index-module_textWrap_3ygOc ">
+                                    <p>
+                                        <span
+                                            class="bjh-p">跟人类一样，鲸鱼也会放屁，而且过程中会带出粑粑小颗粒，这些粑粑缓缓下沉，成为微生物的“美味佳肴”，逐渐被分解殆尽。</span>
+                                    </p>
+                                </div>
+                                <div class="index-module_mediaWrap_213jB ">
+                                    <div class="index-module_contentImg_JmmC0">
+                                        <img src="Envir_Image/14.jpeg" width="640" class="index-module_large_1mscr">
+                                    </div>
+                                </div>
+                                <div class="index-module_mediaWrap_213jB ">
+                                    <div class="index-module_contentImg_JmmC0">
+                                        <img src="Envir_Image/15.jpeg" width="300" class="index-module_normal_Bq4DA">
+                                    </div>
+                                </div>
+                                <div class="index-module_textWrap_3ygOc ">
+                                    <p><span class="bjh-h3">#海牛的屁</span></p>
+                                </div>
+                                <div class="index-module_textWrap_3ygOc ">
+                                    <p>
+                                        <span class="bjh-p">如果你亲眼见到过海牛，是不是看到过它身后经常跟着一串串泡泡？</span>
+                                    </p>
+                                </div>
+                                <div class="index-module_mediaWrap_213jB ">
+                                    <div class="index-module_contentImg_JmmC0">
+                                        <img src="Envir_Image/16.jpeg" width="640" class="index-module_large_1mscr">
+                                    </div>
+                                </div>
+                                <div class="index-module_textWrap_3ygOc ">
+                                    <p>
+                                        <span
+                                            class="bjh-p">嘿嘿~屁股后面的泡泡肯定不是用来好看的，而是它的屁！放屁不是因为吃坏了肚子，而是因为海牛需要靠屁来调解自身浮力，奇怪的场面……</span>
+                                    </p>
+                                </div>
+                                <div class="index-module_textWrap_3ygOc ">
+                                    <p><span class="bjh-h3">#海洋动物的尿液</span></p>
+                                </div>
+                                <div class="index-module_textWrap_3ygOc ">
+                                    <p>
+                                        <span class="bjh-p">海洋动物的尿液可不是什么“废水”，而是海洋营养循环的重要组成部分。</span>
+                                    </p>
+                                </div>
+                                <div class="index-module_textWrap_3ygOc ">
+                                    <p>
+                                        <span
+                                            class="bjh-p">像鲸鱼等大型动物的尿液，在海里面如同肥料一般，成为浮游植物和小型动物的养分来源，参与并保持了整个海洋生命的循环。</span>
+                                    </p>
+                                </div>
+                                <div class="index-module_mediaWrap_213jB ">
+                                    <div class="index-module_contentImg_JmmC0">
+                                        <img src="Envir_Image/17.jpeg" width="640" class="index-module_large_1mscr">
+                                    </div>
+                                </div>
+                                <div class="index-module_textWrap_3ygOc ">
+                                    <p>
+                                        <span
+                                            class="bjh-p">而小鱼的尿液，虽然营养方面不如鲸鱼尿液有效（关键是量少），但是在一些营养物质较为贫瘠的珊瑚礁和沿海区域，鱼类的尿液可以弥补一些营养，尿液中含有的氮、磷以及各种氨基酸和矿物质，可以被珊瑚及其居民们吸收。</span>
+                                    </p>
+                                </div>
+                                <div class="index-module_mediaWrap_213jB ">
+                                    <div class="index-module_contentImg_JmmC0">
+                                        <img src="Envir_Image/18.jpeg" width="640" class="index-module_large_1mscr">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="app-module_rightSection_2v051">
+                            <div>
+                                <div class="index-module_recentWrap_3F_j5">
+                                    <div class="index-module_recentArticleContainer_13m7C" data-pos="{%$listnum++%}">
+                                        <h2>作者最新文章</h2>
+                                        <div class="index-module_itemContainer_YcICc">
+                                            <h3>
+                                                <a href="https://mbd.baidu.com/newspage/data/landingsuper?context=%7B%22nid%22%3A%22news_9778416574643409004%22%7D&amp;n_type=1&amp;p_from=3"
+                                                    target="_blank" class="index-module_itemTitle_39czT">一封来自潜水员的表白信</a>
+                                            </h3>
+                                        </div>
+                                        <div class="index-module_itemContainer_YcICc">
+                                            <h3>
+                                                <a href="https://mbd.baidu.com/newspage/data/landingsuper?context=%7B%22nid%22%3A%22news_9198803110082961161%22%7D&amp;n_type=1&amp;p_from=3"
+                                                    target="_blank"
+                                                    class="index-module_itemTitle_39czT">【物种】造型奇特的长鼻怪鱼-米氏叶吻银鲛</a>
+                                            </h3>
+                                        </div>
+                                        <div class="index-module_itemContainer_YcICc">
+                                            <h3>
+                                                <a href="https://mbd.baidu.com/newspage/data/landingsuper?context=%7B%22nid%22%3A%22news_9159361549177129865%22%7D&amp;n_type=1&amp;p_from=3"
+                                                    target="_blank"
+                                                    class="index-module_itemTitle_39czT">潜水员的六一儿童节，谁还不是个小朋友了~</a>
+                                            </h3>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="index-module_relateContainer_3RNjY">
+                                    <h2>相关文章</h2>
+                                    <div class="index-module_itemContainer_1VoUW">
+                                        <h3><a href="https://mbd.baidu.com/newspage/data/landingsuper?context=%7B%22nid%22%3A%22news_9095697592562385185%22%7D&amp;n_type=1&amp;p_from=4"
+                                                target="_blank"
+                                                class="index-module_newsTitle_2soHQ">格陵兰睡鲨能活多久？也就从明朝活到现在而已！</a></h3>
+                                        <div class="index-module_newsPic_3DfrL"><a
+                                                href="https://mbd.baidu.com/newspage/data/landingsuper?context=%7B%22nid%22%3A%22news_9095697592562385185%22%7D&amp;n_type=1&amp;p_from=4"
+                                                target="_blank"><img
+                                                    src="https://t10.baidu.com/it/u=1524444389,153705661&amp;fm=30&amp;app=106&amp;f=JPEG?w=312&amp;h=208&amp;s=D3F714C4E028EB4701964D01030050D9"></a>
+                                        </div>
+                                    </div>
+                                    <div class="index-module_itemContainer_1VoUW">
+                                        <h3>
+                                            <a href="https://mbd.baidu.com/newspage/data/landingsuper?context=%7B%22nid%22%3A%22news_9538126885356661239%22%7D&amp;n_type=1&amp;p_from=4"
+                                                target="_blank"
+                                                class="index-module_newsTitle_2soHQ">爱和人玩耍的友好海豚，却死于船只碰撞：与野生动物互动应有分寸</a>
+                                        </h3>
+                                        <div class="index-module_newsPic_3DfrL">
+                                            <a href="https://mbd.baidu.com/newspage/data/landingsuper?context=%7B%22nid%22%3A%22news_9538126885356661239%22%7D&amp;n_type=1&amp;p_from=4"
+                                                target="_blank"><img
+                                                    src="https://t12.baidu.com/it/u=2561535286,153603448&amp;fm=30&amp;app=106&amp;f=JPEG?w=312&amp;h=208&amp;s=B5107194320340EB4C84E4D20300F0B3"></a>
+                                        </div>
+                                    </div>
+                                    <div class="index-module_itemContainer_1VoUW">
+                                        <h3>
+                                            <a href="https://mbd.baidu.com/newspage/data/landingsuper?context=%7B%22nid%22%3A%22news_9041244468069879764%22%7D&amp;n_type=1&amp;p_from=4"
+                                                target="_blank"
+                                                class="index-module_newsTitle_2soHQ">澳报告称12%在澳鲨鱼类物种面临灭绝风险</a>
+                                        </h3>
+                                        <div class="index-module_newsPic_3DfrL">
+                                            <a href="https://mbd.baidu.com/newspage/data/landingsuper?context=%7B%22nid%22%3A%22news_9041244468069879764%22%7D&amp;n_type=1&amp;p_from=4"
+                                                target="_blank"><img
+                                                    src="https://t11.baidu.com/it/u=3757112857,153676523&amp;fm=30&amp;app=106&amp;f=JPEG?w=312&amp;h=208&amp;s=91F75286840C17555B2E8A05030070CB"></a>
+                                        </div>
+                                    </div>
+                                    <div class="index-module_itemContainer_1VoUW">
+                                        <h3>
+                                            <a href="https://mbd.baidu.com/newspage/data/landingsuper?context=%7B%22nid%22%3A%22news_8694718685595955091%22%7D&amp;n_type=1&amp;p_from=4"
+                                                target="_blank"
+                                                class="index-module_newsTitle_2soHQ">口哨也能交流！人类的口哨语言可能为海豚的交流信息提供启示</a>
+                                        </h3>
+                                        <div class="index-module_newsPic_3DfrL">
+                                            <a href="https://mbd.baidu.com/newspage/data/landingsuper?context=%7B%22nid%22%3A%22news_8694718685595955091%22%7D&amp;n_type=1&amp;p_from=4"
+                                                target="_blank"><img
+                                                    src="https://t11.baidu.com/it/u=4203375457,153611961&amp;fm=30&amp;app=106&amp;f=JPEG?w=312&amp;h=208&amp;s=50348A74445A51641CAF4C52030070FA"></a>
+                                        </div>
+                                    </div>
+                                    <div class="index-module_itemContainer_1VoUW">
+                                        <h3>
+                                            <a href="https://mbd.baidu.com/newspage/data/landingsuper?context=%7B%22nid%22%3A%22news_7890232286752867261%22%7D&amp;n_type=1&amp;p_from=4"
+                                                target="_blank"
+                                                class="index-module_newsTitle_2soHQ">被圈养42年的虎鲸自残求解脱，野生的虎鲸能杀大白鲨却不伤害人类</a>
+                                        </h3>
+                                        <div class="index-module_newsPic_3DfrL">
+                                            <a href="https://mbd.baidu.com/newspage/data/landingsuper?context=%7B%22nid%22%3A%22news_7890232286752867261%22%7D&amp;n_type=1&amp;p_from=4"
+                                                target="_blank"><img
+                                                    src="https://t11.baidu.com/it/u=2533883771,153258290&amp;fm=30&amp;app=106&amp;f=JPEG?w=312&amp;h=208&amp;s=BB8DA04C4EB7A6450C761D840300C08A"></a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div id=tts-player></div>
+</body>
+
+</html>
+
+
+
+
+
+
+
+
+
+<footer class="c-platform-footer c-platform-footer--rsi">
+    <div class="l-platform-footer-container">
+        <div class="c-platform-footer__column l-column ">
+            <ul class="c-platform-footer-brand c-platform-footer-brand--sc">
+                <li class="c-platform-footer-brand__item">
+                    <span class="c-brand c-brand--sc js-footer-open-sub-menu">
+                        <span class="c-brand__logo c-brand__logo--sc">
+                            <span class="js-svg-inliner h-svg h-svg__logo-star-citizen"></span>
+                            <span class="js-svg-inliner h-svg h-svg__logo-star-citizen--fullcolor"></span>
+                        </span>
+
+                        <span class="c-brand__label">
+                            加入<br>我们
+                        </span>
+
+                        <span class="c-brand__arrow">
+                        </span>
+                    </span>
+
+                    <ul class="c-platform-footer-list c-platform-footer-list--sc">
+                        <li class="c-platform-footer-list__item">
+                            <a href="/star-citizen" class="c-platform-footer-link">联系我们</a>
+                        </li>
+
+                        <li class="c-platform-footer-list__item">
+                            <a href="/star-citizen/howto/1" class="c-platform-footer-link">关于我们</a>
+                        </li>
+
+                        <li class="c-platform-footer-list__item">
+                            <a href="/star-citizen/universe" class="c-platform-footer-link">海洋生物</a>
+                        </li>
+
+                        <li class="c-platform-footer-list__item">
+                            <a href="/star-citizen/media" class="c-platform-footer-link">海洋历史</a>
+                        </li>
+
+                        <li class="c-platform-footer-list__item">
+                            <a href="/star-citizen/play-now"
+                                class="c-platform-footer-link js-google-analytics-event-tracker"
+                                data-event-category="FlyNow" data-event-label="footerClick">
+                                更多了解
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+            </ul>
+
+        </div>
+
+        <div class="c-platform-footer__column l-column ">
+            <ul class="c-platform-footer-brand c-platform-footer-brand--s42">
+                <li class="c-platform-footer-brand__item">
+                    <span class="c-brand c-brand--s42 js-footer-open-sub-menu">
+                        <span class="c-brand__logo c-brand__logo--s42">
+                            <span class="js-svg-inliner h-svg h-svg__logo-squadron42"></span>
+                            <span class="js-svg-inliner h-svg h-svg__logo-squadron42--fullcolor"></span>
+                        </span>
+
+                        <span class="c-brand__label">
+                            海洋<br>新闻
+                        </span>
+
+                        <span class="c-brand__arrow">
+                        </span>
+                    </span>
+
+                    <ul class="c-platform-footer-list c-platform-footer-list--s42">
+                        <li class="c-platform-footer-list__item">
+                            <a href="/squadron42" class="c-platform-footer-link">化石</a>
+                        </li>
+
+                        <li class="c-platform-footer-list__item">
+                            <a href="/squadron42#enlist" class="c-platform-footer-link">历史</a>
+                        </li>
+
+                        <li class="c-platform-footer-list__item">
+                            <a href="/squadron42#roadmap" class="c-platform-footer-link">海洋年龄</a>
+                        </li>
+
+                        <li class="c-platform-footer-list__item">
+                        </li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+
+        <div class="c-platform-footer__column l-column is-active">
+            <ul class="c-platform-footer-brand c-platform-footer-brand--rsi">
+                <li class="c-platform-footer-brand__item">
+                    <span class="c-brand c-brand--rsi js-footer-open-sub-menu">
+                        <span class="c-brand__logo c-brand__logo--rsi">
+                            <span class="js-svg-inliner h-svg h-svg__logo-rsi"></span>
+                            <span class="js-svg-inliner h-svg h-svg__logo-rsi--fullcolor"></span>
+                        </span>
+                        <span class="c-brand__label">
+                            悠久历史渊源
+                        </span>
+                        <span class="c-brand__arrow">
+                        </span>
+                    </span>
+
+                    <ul class="c-platform-footer-list c-platform-footer-list--rsi">
+                        <li class="c-platform-footer-list__item">
+                            <a href="/" class="c-platform-footer-link">海洋初生</a>
+                        </li>
+                        <li class="c-platform-footer-list__item">
+                            <a href="/comm-link" class="c-platform-footer-link">生命形成</a>
+                        </li>
+
+                        <li class="c-platform-footer-list__item">
+                            <a href="/community" class="c-platform-footer-link">生命发展</a>
+                        </li>
+
+                        <li class="c-platform-footer-list__item">
+                            <a href="/roadmap" class="c-platform-footer-link">现代生命</a>
+                        </li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+
+        <div class="c-platform-footer__column l-column l-column--smaller">
+            <img src="Images/wx_g.jpg" style="margin:50px 30px" width="150px" height="150px" />
+
+        </div>
+
+        <div class="c-platform-footer__column l-column l-column--smaller">
+            <img src="Images/wx_x.jpg" style="margin:50px 20px" width="150px" height="150px" />
+
+        </div>
+
+    </div>
+
+
+</footer>
+</div>
+
+
+</body>
+
+</html>

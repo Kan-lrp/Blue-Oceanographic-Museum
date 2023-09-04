@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
+
+    <title>Login</title>
+    <script src="https://cdn.bootcss.com/jquery/3.4.1/jquery.min.js"></script>
+    <link href="Content/bootstrap.css" rel="stylesheet" />
+    <link rel="stylesheet" href="CSS/bule.css">
+    <link href="CSS/home.css" rel="stylesheet" />
+    <script type="text/javascript">
+        var flag = false;//用来判断是否可以成功登录
+        var flag2 = false;
+            //验证手机号
+            function regPhone() {
+                var phone = document.getElementById("account").value;
+                var var5 = /0?(13|14|15|18|17|19)[0-9]{9}/; //手机号
+                if (!var5.test(phone)) {
+                    document.getElementById("regPhone").innerText = "请输入手机号格式";
+                    document.getElementById("regPhone").style.color = "#20b2aa";
+                    flag = false;
+                } else {
+                    flag = true;
+                    document.getElementById("regPhone").innerText = "";
+                }
+            }
+            //验证密码
+            function regPwd() {
+                var pwd = document.getElementById("password").value;
+                var var2 = /^[A-Z]{1}[A-Za-z0-9]{7,9}$/; //密码
+                if (!var2.test(pwd)) {
+                    //密码
+                    document.getElementById("regPwd").innerText = "请输入大写字母开头、数字字母混合、8-10位";
+                    document.getElementById("regPwd").style.color = "#20b2aa";
+                    flag2 = false;
+                } else {
+                    flag2 = true;
+                    document.getElementById("regPwd").innerText = "";
+                }
+
+            }
+
+        //跳转页面
+        window.onload = function () {
+            var btn = document.getElementById("submit");
+            btn.onclick = function () {
+                if(flag && flag2){
+                    window.open('index.html','_blank');
+                }
+            }
+        }
+
+
+        $(function () {
+            $('#password').focus(function () {
+                // 密码框获得焦点，追加样式.password
+                $('#owl').addClass('password');
+            }).blur(function () {
+                // 密码框失去焦点，移除样式.password
+                $('#owl').removeClass('password');
+            })
+        })
+    </script>
+</head>
+
+<body>
+    <video autoplay="autoplay" loop="loop" muted>
+        <source src="Video/Login.mp4" type="video/mp4" />
+    </video>
+    <div id="headmeun" class="headmeun">
+        <div class="centers">
+            <div id="logo">
+                <img src="Images/Logo.png" width="55" height="55" />
+            </div>
+            <div id="meun">
+                <ul>
+                    <li>
+                        <a href="index.html">首页</a>
+                        <img src="Images/water.png" width="45" height="10" class="hover1" />
+                    </li>
+                    <li>
+                        <a href="Evail.html">走近海博 </a>
+                        <img src="Images/water.png" width="80" height="10" class="hover1" />
+                    </li>
+                    <li>
+                        <a href="order.html">参观服务</a>
+                        <img src="Images/water.png" width="80" height="10" class="hover1" />
+
+                    </li>
+                    <li>
+                        <a href="Exhibits.html">陈列展览</a>
+                        <img src="Images/water.png" width="80" height="10" class="hover1" />
+                    </li>
+                    <li>
+                        <a href="Haiboroom.html">海博讲堂</a>
+                        <img src="Images/water.png" width="80" height="10" class="hover1" />
+                    </li>
+                    <li>
+                        <a href="News.html">海博新闻</a>
+                        <img src="Images/water.png" width="80" height="10" class="hover1" />
+                    </li>
+                </ul>
+            </div>
+            <div id="function">
+                <ul>
+                    <li class="glyphicon glyphicon-search"></li>
+
+
+                    <a href="login.html">
+                        <li class="glyphicon glyphicon-user"></li>
+                    </a>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <div class="back">
+        <div class="login-box">
+            <div class="owl" id="owl">
+                <div class="hand"></div>
+                <div class="hand hand-r"></div>
+                <div class="arms">
+                    <div class="arm"></div>
+                    <div class="arm arm-r"></div>
+                </div>
+            </div>
+            <div class="input-box">
+                <input type="text" placeholder="手机号" onblur="regPhone()" id="account"><span id="regPhone"></span>
+                <input type="password" placeholder="密码" onblur="regPwd()" id="password"><span id="regPwd"></span>
+                <button id="submit">登录</button>
+            </div>
+        </div>
+    </div>
+
+</body>
+
+</html>

@@ -1,0 +1,410 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>购票</title>
+    <link href="Content/bootstrap.css" rel="stylesheet" />
+    <script src="Scripts/jquery-3.4.1.min.js"></script>
+    <script src="Scripts/bootstrap.min.js"></script>
+    <link href="CSS/T1 (1).css" rel="stylesheet" />
+    <link href="CSS/home.css" rel="stylesheet" />
+    <link href="CSS/order.css" rel="stylesheet" />
+</head>
+
+
+<body onload="showDate()" id="oo">
+    <div id="headmeun" class="headmeun light">
+        <div class="centers">
+            <div id="logo">
+                <img src="Images/Logo.png" width="55" height="55" />
+            </div>
+            <div id="meun">
+                <ul>
+                    <li>
+                        <a href="index.html">首页</a>
+                        <img src="Images/water.png" width="45" height="10" class="hover1" />
+                    </li>
+                    <li>
+                        <a href="Evail.html">走近海博 </a>
+                        <img src="Images/water.png" width="80" height="10" class="hover1" />
+                    </li>
+                    <li>
+                        <a href="order.html">参观服务</a>
+                        <img src="Images/water.png" width="80" height="10" class="hover" />
+
+                    </li>
+                    <li>
+                        <a href="Exhibits.html">陈列展览</a>
+                        <img src="Images/water.png" width="80" height="10" class="hover1" />
+                    </li>
+                    <li>
+                        <a href="Haiboroom.html">海博讲堂</a>
+                        <img src="Images/water.png" width="80" height="10" class="hover1" />
+                    </li>
+                    <li>
+                        <a href="News.html">海博新闻</a>
+                        <img src="Images/water.png" width="80" height="10" class="hover1" />
+                    </li>
+                </ul>
+            </div>
+            <div id="function">
+                <ul>
+                    <li class="glyphicon glyphicon-search"></li>
+
+
+                    <a href="login.html">
+                        <li class="glyphicon glyphicon-user"></li>
+                    </a>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <b>
+        <div id="bigbox">
+            <div id="calendar">
+                <div id="calendar_head">
+                    <a href="#" onclick="lastMonth()">
+                        << /a>
+
+                            <div id="month"></div>
+
+                            <a href="#" onclick="nextMonth()">></a>
+                </div>
+                <div id="calendar_week">
+                    <div class="everyday">日</div>
+                    <div class="everyday">一</div>
+                    <div class="everyday">二</div>
+                    <div class="everyday">三</div>
+                    <div class="everyday">四</div>
+                    <div class="everyday">五</div>
+                    <div class="everyday">六</div>
+                </div>
+    </b>
+
+    <div class="hr"></div>
+    <div id="day"></div>
+    </div>
+    <div id="time">
+        <span>
+            入馆时段：
+        </span>
+        <button>9:00-11:00</button>
+        <button>13:00-18:00</button>
+    </div>
+    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal" id="submit">预约</button>
+    </div>
+    <div class="modal fade app" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                            aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title" id="myModalLabel">确认购买</h4>
+                </div>
+                <div class="modal-body">
+                    <div id="ewm" class="hidde">
+                        <img src="Images/%e4%ba%8c%e7%bb%b4%e7%a0%81.gif" width="240" height="240" />
+                    </div>
+                    <div id="mode_date">
+                        <p>日期：<span id="date"></span></p>
+                        <p>时段：<span id="stime"></span></p>
+                        <p id="num" class="hidde">数量：<input type="number" /></p>
+                    </div>
+
+                </div>
+
+                <div class="modal-footer">
+
+
+                    <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+                    <button type="button" class="btn btn-primary" id="ok">确认</button>
+
+
+                </div>
+
+
+            </div>
+        </div>
+    </div>
+    <footer class="c-platform-footer c-platform-footer--rsi">
+        <div class="l-platform-footer-container">
+            <div class="c-platform-footer__column l-column ">
+                <ul class="c-platform-footer-brand c-platform-footer-brand--sc">
+                    <li class="c-platform-footer-brand__item">
+                        <span class="c-brand c-brand--sc js-footer-open-sub-menu">
+                            <span class="c-brand__logo c-brand__logo--sc">
+                                <span class="js-svg-inliner h-svg h-svg__logo-star-citizen"></span>
+                                <span class="js-svg-inliner h-svg h-svg__logo-star-citizen--fullcolor"></span>
+                            </span>
+
+                            <span class="c-brand__label">
+                                加入<br>我们
+                            </span>
+
+                            <span class="c-brand__arrow">
+                            </span>
+                        </span>
+
+                        <ul class="c-platform-footer-list c-platform-footer-list--sc">
+                            <li class="c-platform-footer-list__item">
+                                <a href="/star-citizen" class="c-platform-footer-link">联系我们</a>
+                            </li>
+
+                            <li class="c-platform-footer-list__item">
+                                <a href="/star-citizen/howto/1" class="c-platform-footer-link">关于我们</a>
+                            </li>
+
+                            <li class="c-platform-footer-list__item">
+                                <a href="/star-citizen/universe" class="c-platform-footer-link">海洋生物</a>
+                            </li>
+
+                            <li class="c-platform-footer-list__item">
+                                <a href="/star-citizen/media" class="c-platform-footer-link">海洋历史</a>
+                            </li>
+
+                            <li class="c-platform-footer-list__item">
+                                <a href="/star-citizen/play-now"
+                                    class="c-platform-footer-link js-google-analytics-event-tracker"
+                                    data-event-category="FlyNow" data-event-label="footerClick">
+                                    更多了解
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+
+            </div>
+
+            <div class="c-platform-footer__column l-column ">
+                <ul class="c-platform-footer-brand c-platform-footer-brand--s42">
+                    <li class="c-platform-footer-brand__item">
+                        <span class="c-brand c-brand--s42 js-footer-open-sub-menu">
+                            <span class="c-brand__logo c-brand__logo--s42">
+                                <span class="js-svg-inliner h-svg h-svg__logo-squadron42"></span>
+                                <span class="js-svg-inliner h-svg h-svg__logo-squadron42--fullcolor"></span>
+                            </span>
+
+                            <span class="c-brand__label">
+                                海洋<br>新闻
+                            </span>
+
+                            <span class="c-brand__arrow">
+                            </span>
+                        </span>
+
+                        <ul class="c-platform-footer-list c-platform-footer-list--s42">
+                            <li class="c-platform-footer-list__item">
+                                <a href="/squadron42" class="c-platform-footer-link">化石</a>
+                            </li>
+
+                            <li class="c-platform-footer-list__item">
+                                <a href="/squadron42#enlist" class="c-platform-footer-link">历史</a>
+                            </li>
+
+                            <li class="c-platform-footer-list__item">
+                                <a href="/squadron42#roadmap" class="c-platform-footer-link">海洋年龄</a>
+                            </li>
+
+                            <li class="c-platform-footer-list__item">
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+
+            <div class="c-platform-footer__column l-column is-active">
+                <ul class="c-platform-footer-brand c-platform-footer-brand--rsi">
+                    <li class="c-platform-footer-brand__item">
+                        <span class="c-brand c-brand--rsi js-footer-open-sub-menu">
+                            <span class="c-brand__logo c-brand__logo--rsi">
+                                <span class="js-svg-inliner h-svg h-svg__logo-rsi"></span>
+                                <span class="js-svg-inliner h-svg h-svg__logo-rsi--fullcolor"></span>
+                            </span>
+                            <span class="c-brand__label">
+                                悠久历史渊源
+                            </span>
+                            <span class="c-brand__arrow">
+                            </span>
+                        </span>
+
+                        <ul class="c-platform-footer-list c-platform-footer-list--rsi">
+                            <li class="c-platform-footer-list__item">
+                                <a href="/" class="c-platform-footer-link">海洋初生</a>
+                            </li>
+                            <li class="c-platform-footer-list__item">
+                                <a href="/comm-link" class="c-platform-footer-link">生命形成</a>
+                            </li>
+
+                            <li class="c-platform-footer-list__item">
+                                <a href="/community" class="c-platform-footer-link">生命发展</a>
+                            </li>
+
+                            <li class="c-platform-footer-list__item">
+                                <a href="/roadmap" class="c-platform-footer-link">现代生命</a>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+
+            <div class="c-platform-footer__column l-column l-column--smaller">
+                <img src="Images/wx_g.jpg" style="margin:50px 30px" width="150px" height="150px" />
+
+            </div>
+
+            <div class="c-platform-footer__column l-column l-column--smaller">
+                <img src="Images/wx_x.jpg" style="margin:50px 20px" width="150px" height="150px" />
+
+            </div>
+
+        </div>
+
+
+    </footer>
+    <script src="/Scripts/jquery-3.4.1.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vue@2"></script>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <script>
+        var today = new Date();
+        var year = today.getFullYear();
+        var month = today.getMonth() + 1;
+        var day = today.getDate();
+        var allday = 0;
+        var date;
+        var text;
+        var time;
+        let id = location.href.substring(location.href.indexOf("=") + 1); //截取获得=后一位的内容；
+
+
+
+        function showMonth() {
+            var year_month = year + "年" + month + "月";
+            document.getElementById("month").innerHTML = year_month;
+        }
+
+        function count() {
+            if (month != 2) {
+                if ((month == 4) || (month == 6) || (month == 9) || (month == 11)) {
+                    allday = 30;
+                } else {
+                    allday = 31;
+                }
+            } else {
+                if (((year % 4) == 0 && (year % 100) != 0) || (year % 400) == 0) {
+                    allday = 29;
+                } else {
+                    allday = 28;
+                }
+            }
+        }
+
+        function showDate() {
+            showMonth();
+            count();
+            var firstdate = new Date(year, month - 1, 1);
+            var xiqi = firstdate.getDay();
+            var daterow = document.getElementById("day");
+            daterow.innerHTML = " ";
+            if (xiqi != 0) {
+                for (var i = 0; i < xiqi; i++) {
+                    var dayElement = document.createElement("p");
+                    dayElement.className = "everyday";
+                    daterow.appendChild(dayElement);
+                    disabled = true;
+                }
+            }
+            for (var j = 1; j <= allday; j++) {
+                var dayElement = document.createElement("button");
+                dayElement.className = "everyday";
+                dayElement.innerHTML = month + "月" + j + "日";
+                if (j < day) {
+                    //之前颜色
+                    var dayElement = document.createElement("div");
+
+                    dayElement.innerHTML = month + "月" + j + "日";
+
+                    dayElement.style.color = "#808080";
+                    //dayElement.style.border = "1px solid #ddd";
+                }
+                if (j == day) {
+                    //当天颜色
+                    dayElement.style.color = "rgba(45, 46, 83, 1)";
+                    dayElement.style.backgroundColor = "#d7d9ec";
+                }
+                if (j >= day) {
+                    //之后颜色
+                    //dayElementstyle.backgroundColor = "#d7d9ec";
+
+                }
+                daterow.appendChild(dayElement)
+            }
+        }
+
+        function lastMonth() {
+            if (month > 1) {
+                month -= 1;
+            } else {
+                month = 12;
+                year -= 1;
+            }
+            showDate();
+        }
+
+        function nextMonth() {
+            if (month < 12) {
+                month += 1;
+            } else {
+                month = 1;
+                year += 1;
+            }
+            showDate();
+        }
+
+        //日期单击事件
+        $(document).on('click', '.everyday', function (e) {
+            $('#ewm').addClass("hidde")
+            $('#mode_date').removeClass("hidde")
+            $(this).siblings().removeClass("back");
+            $(this).addClass("back");
+            text = $(this).text();
+
+        });
+
+        //事件单击事件
+        $('#time button').click(function () {
+            $(this).siblings().removeClass("back1");
+            $(this).addClass("back1");
+            time = $(this).text();
+
+        });
+
+        //按钮单击事件
+        $('#submit').click(function () {
+            document.getElementById("date").innerHTML = text;
+            document.getElementById("stime").innerHTML = time;
+            if (id == 2) //id为2代表团体购票。否则为个人购票
+            {
+                $('#num').removeClass("hidde")
+            }
+
+        });
+
+        //确认按钮单击事件
+        $('#ok').click(function () {
+            $('#ewm').removeClass("hidde")
+            $('#mode_date').addClass("hidde")
+        });
+    </script>
+
+
+
+
+</body>
+
+
+
+
+</html>

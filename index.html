@@ -1,0 +1,529 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>首页</title>
+
+    <script src="https://cdn.bootcss.com/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <link href="Content/bootstrap.css" rel="stylesheet" />
+    <link href="Content/font.css" rel="stylesheet" />
+    <link href="Content/animate.css" rel="stylesheet" />
+    <script src="Scripts/WOW.js"></script>
+    <link href="CSS/T1 (1).css" rel="stylesheet" />
+    <link href="CSS/home.css" rel="stylesheet" />
+
+    <script>
+        $(function () {
+            //控制头部背景颜色显示
+            navHeader();
+            $(window).scroll(function () {
+                navHeader();
+            })
+
+            function navHeader() {
+                if ($(window).scrollTop() > 0) {
+                    $(".headmeun").addClass("light");
+                } else {
+                    $(".headmeun").removeClass("light");
+                }
+            }
+
+            //js效果
+            new WOW().init();
+
+            //公告栏上下轮播显示
+            function infor_text() {
+                var ul = $(".ul");
+                var liFirst = ul.find('li:first');
+                ul.animate({
+                    'top': "-50px"
+                }, 0, function () {
+                    ul.animate({
+                        'top': "0"
+                    },0, function () {
+                        var clone = liFirst.clone();
+                        ul.append(clone);
+                        liFirst.remove();
+                    });
+                });
+            }
+            setInterval(infor_text, 3000);
+
+            //公告栏上图片轮播
+            window.onload = function () {
+                var img = document.getElementsByClassName('img')[0];
+                // console.log(img);
+                var arr = ["Images/D2.gif", "Images/D3.gif",
+                    "Images/D4.gif", "Images/D5.gif", "Images/D1.gif"
+                ];
+                //// console.log(arr);
+                var n = 0;
+
+                function qh() {
+                    n++;
+                    if (n > 4) {
+                        n = 0;
+                    }
+                    console.log(n);
+                    console.log(arr[n])
+                    img.src = arr[n];
+                }
+                setInterval(qh, 4000);
+            }
+        })
+    </script>
+</head>
+
+<body>
+    <!-- 头部 -->
+    <div id="head">
+        <div class="hiddens">
+            <div id="headmeun" class="headmeun">
+                <div class="centers">
+                    <div id="logo">
+                        <img src="Images/Logo.png" width="55" height="55" />
+                    </div>
+                    <div id="meun">
+                        <ul>
+                            <li>
+                                <a href="index.html">首页</a>
+                                <img src="Images/water.png" width="45" height="10" class="hover" />
+                            </li>
+                            <li>
+                                <a  href="Evail.html">走近海博 </a>
+                                <img src="Images/water.png" width="80" height="10" class="hover1" />
+                            </li>
+                            <li>
+                                <a href="order.html">参观服务</a>
+                                <img src="Images/water.png" width="80" height="10" class="hover1" />
+
+                            </li>
+                            <li>
+                                <a href="Exhibits.html">陈列展览</a>
+                                <img src="Images/water.png" width="80" height="10" class="hover1" />
+                            </li>
+                            <li>
+                                <a href="Haiboroom.html">海博讲堂</a>
+                                <img src="Images/water.png" width="80" height="10" class="hover1" />
+                            </li>
+                            <li>
+                                <a href="News.html">海博新闻</a>
+                                <img src="Images/water.png" width="80" height="10" class="hover1" />
+                            </li>
+                        </ul>
+                    </div>
+                    <div id="function">
+                        <ul>
+                            <li class="glyphicon glyphicon-search"></li>
+
+
+                            <a href="login.html">
+                                <li class="glyphicon glyphicon-user"></li>
+                            </a>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+
+            <div id="Head_text">
+                <div id="myCarousel" class="carousel slide" data-ride="carousel" data-interval="5000">
+                    <!-- 轮播（Carousel）指标 -->
+                    <ol class="carousel-indicators">
+                        <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
+                        <li data-target="#myCarousel" data-slide-to="1"></li>
+                        <li data-target="#myCarousel" data-slide-to="2"></li>
+                    </ol>
+                    <!-- 轮播（Carousel）项目 -->
+                    <div class="carousel-inner">
+                        <div class="item active">
+                            <img src="Images/1.png" class="item_pic" alt="First slide">
+                            <div class="center textmove">
+                                <h5>致力于让您身临其境的博物馆</h5>
+                                <h1>蓝色海洋博物馆</h1>
+                                <div><a class="button button-modern button-custom-size-1"
+                                        href="Evail.html">了解详情>></a></div>
+                            </div>
+                        </div>
+                        <div class="item">
+                            <img src="Images/1.png" class="item_pic" alt="Second slide">
+                            <div class="center textmove">
+                                <h5>让您更深入理解海洋不虚此行</h5>
+                                <h1>多种濒危海洋生物</h1>
+                                <div><a class="button button-modern button-custom-size-1"
+                                        href="Haiboroom.html">了解详情>></a></div>
+                            </div>
+                        </div>
+                        <div class="item">
+                            <img src="Images/1.png" class="item_pic" alt="Third slide">
+                            <div class="center textmove">
+                                <h5>从海洋得到灵感研发出来的游戏</h5>
+                                <h1>海底落跑甜心</h1>
+                                <div><a class="button button-modern button-custom-size-1" href="#">立即体验>></a></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 背景视频 -->
+        <video autoplay="autoplay" loop="loop" muted>
+            <source src="Video/sea.mp4" type="video/mp4" />
+        </video>
+    </div>
+
+    <!-- 中间部分 -->
+    <div id="concent ">
+        <div class="part  blue">
+            <div class="animate">
+                <div class="animate_div">
+                    <img class="img" src="Images/D1.gif" />
+                </div>
+            </div>
+
+            <!-- 公告栏 -->
+            <div class="infor ">
+                <div class="infor_title">
+                    海博<br />
+                    公告
+                </div>
+                <div class="glyphicon glyphicon-list-alt infor_icon">
+
+                </div>
+                <div class="marginleft"></div>
+
+                <div class="infor_text">
+                    <ul class="ul">
+                        <li><a href="#">1.蓝色海洋博物馆2019年5月1日试运行，每周一闭馆（节假日除外），周二到周五9:00--17:00开放；周六、周日9:00--18:00开放；法定节假日9:00--19:00开放。</a>
+                        </li>
+                        <li><a href="#">2.蓝色海洋博物馆试运行将首批开放“远古海洋展厅”、“今日海洋展厅”、“发现之旅”、“龙的时代”、“欢乐海洋”和“海洋与天文”六个展厅</a></li>
+                        <li><a href="#">3.“巍峨的丰碑”长征主题展览正在国家海洋博物馆展出,“今日海洋展厅”、“发现之旅”、“龙的时代”、“欢乐海洋”和“海洋与天文”六个展厅</a></li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- 新闻 -->
+            <div class="news wow fadeInUp" data-wow-delay="200">
+                <h3><i data-v-8b2d1fc2="" class="iconfont iconzixun"></i>海博新闻</h3>
+                <a class="more" href="News.html">查看更多></a>
+                <div class="new_left">
+                    <div id="myCarousel" class="carousel slide" data-ride="carousel" data-interval="5000">
+
+                        <div class="carousel-inner">
+                            <div class="item active img">
+                                <img src="Images/n2.jpg" alt="Fi1rst slide">
+                            </div>
+                            <div class="item img">
+                                <img src="Images/n3.jpg" alt="Second slide">
+                            </div>
+                            <div class="item img">
+                                <img src="Images/s1.jpg" alt="Third slide">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="new_right">
+                    <ul>
+                        <li><a href="#">“听海”电台 | 第二季冷知识系列第17期：海底世界——冲出海底（下）</a><span class="date">2021/6/9</span></li>
+                        <li><a href="#">世界海洋日 | “保护海洋生物多样性”主题科普视频</a><span class="date">2021/6/8</span></li>
+                        <li><a href="#">今天，世界海洋日</a><span class="date">2021/5/8</span></li>
+                        <li><a href="#">儿童节 | 欢乐海洋预祝大小朋友们六一快乐！</a><span class="date">2021/6/1</span></li>
+                        <li><a href="#">长征主题展 | 伟大转折——遵义会议</a><span class="date">2021/6/1</span></li>
+                        <li><a href="#">文明出游 | 你我皆是美丽风景线</a><span class="date">2021/5/28</span></li>
+                        <li><a href="#">探海微视频 | 第三季第7期：返航之旅</a><span class="date">2021/5/28</span></li>
+                        <li><a href="#">海博展讯 | “巍峨的丰碑”长征主题展览正在国家海洋博物馆展出</a><span class="date">2021/5/28</span></li>
+                        <li><a href="#">航海？！猫咪有话要说</a><span class="date">2021/5/28</span></li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- 购票 -->
+            <div class="look wow fadeInUp" data-wow-delay="200">
+                <h3><i><img src="Images/data_image_png;base%e2%80%a6 (1).png" /></i>参观须知</h3>
+                <div class="look_left">
+                    <h5>开放时间</h5>
+                    <ul>
+                        <li>1、 全年开放时间：每周一闭馆（法定节假日除外）</li>
+                        <li>2、 每日开馆时间：</li>
+                        <li class="tui">1) 周二到周五：9:00-17:00</li>
+                        <li class="tui">2) 周六、周日：9:00-18:00</li>
+                        <li class="tui">3) 法定节假日：9:00-19:00</li>
+                        <li>每日闭馆时间提前30分钟停止入馆。</li>
+                        <li>3、如有调整，另行通知，敬请关注。</li>
+                    </ul>
+                </div>
+                <div class="look_right">
+                    <a href="order.html?id=1" class="tickit"></a><br />
+                    <a href="order.html?id=2" class="tickit1"></a>
+                    <hr />
+                    <span>参观咨询电话：</span><br />
+                    <div>咨询电话：123-365342&nbsp;&nbsp;&nbsp;投诉电话：110-12313</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="part1">
+            <!-- 濒危动物 -->
+            <div class="endangered wow fadeInUp" data-wow-delay="200">
+                <h3><i data-v-8b2d1fc2="" class="iconfont iconhaiyang"></i>濒危动物</h3>
+                <a class="more" href="Haiboroom.html">查看更多></a>
+                <div class="endangered_pic">
+                    <div class="endangered_pic_bigpic">
+                        <div class="endangered_div1">
+                            <img src="Images/欧洲鳇.jpg" />
+                            <div class="endangered_text1">欧洲鳇</div>
+                        </div>
+                    </div>
+                    <div class="endangered_pic_smallgpic">
+                        <div class="endangered_div">
+                            <img src="Images/大西洋比目鱼.jpg" />
+                            <div class="endangered_text">大西洋比目鱼</div>
+                        </div>
+                        <div class="endangered_div">
+                            <img src="Images/条纹平鲉.jpg" />
+                            <div class="endangered_text">条纹平鲉</div>
+                        </div>
+                        <div class="endangered_div">
+                            <img src="Images/金枪鱼.jpg" />
+                            <div class="endangered_text">蓝鳍金枪鱼</div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+            <!-- 展品 -->
+            <div class="product wow fadeInUp" data-wow-delay="200">
+                <h3><i data-v-8b2d1fc2="" class="iconfont iconzhihuiwenwu" style="width:36px; height:36px"></i>精选展品</h3>
+                <a class="more" href="Exhibits.html">查看更多></a>
+                <div>
+                    <div class="product_pic">
+                        <img src="Images/jp_1.jpg" />
+                        <div class="pic_text">序厅、地球的形成、海洋中水的由来</div>
+                    </div>
+                    <div class="product_pic">
+                        <img src="Images/jp_2.jpg" />
+                        <div class="pic_text">生命的形成；前寒武纪；叠层石ULL</div>
+                    </div>
+                    <div class="product_pic">
+                        <img src="Images/jp_3.jpg" />
+                        <div class="pic_text">新元古代雪球地球事件</div>
+                    </div>
+                </div>
+
+                <div>
+                    <div class="product_pic">
+                        <img src="Images/jp_4.jpg" />
+                        <div class="pic_text">埃迪卡拉生物群代表化石</div>
+                    </div>
+                    <div class="product_pic">
+                        <img src="Images/jp_5.jpg" />
+                        <div class="pic_text">寒武纪</div>
+                    </div>
+                    <div class="product_pic">
+                        <img src="Images/jp_6.jpg" />
+                        <div class="pic_text">澄江生物群代表化石</div>
+                    </div>
+                </div>
+
+
+
+            </div>
+        </div>
+
+        <!-- 评论 -->
+        <div class="part1 blue">
+            <div class="remark wow fadeInUp" data-wow-delay="200">
+                <div class="remark_top">
+                    <a href="#">
+                        <div>
+                            <p class="remark_top_p">
+                                <span class="glyphicon glyphicon-pencil first"></span>
+                                <span class="remark_top_text">意见反馈</span>
+                            </p>
+                            <p class="remark_top_p">您的意见有助于我们更好的提升官网体验，感谢您的支持！</p>
+                        </div>
+                    </a>
+                    <a href="#">
+                        <div>
+                            <p class="remark_top_p">
+                                <span class="glyphicon glyphicon-edit first"></span>
+                                <span class="remark_top_text">问卷调查</span>
+                            </p>
+                            <p class="remark_top_p">请回答几个简单的小问题，让我们能够为您更好的服务体验吧～</p>
+                        </div>
+                    </a>
+                    <a href="#">
+                        <div>
+                            <p class="remark_top_p">
+                                <span class="glyphicon glyphicon-briefcase first"></span>
+                                <span class="remark_top_text">失物招领</span>
+                            </p>
+                            <p class="remark_top_p">如果您在馆内丢失物品，快来这里找一找</p>
+                        </div>
+                    </a>
+                </div>
+                <div class="remark_down">
+                    <h4>地址：翻斗花园008栋</h4>
+                    <ul>
+                        <li>1、 全年开放时间：每周一闭馆（法定节假日除外）</li>
+                        <li>2、 每日开馆时间：</li>
+                        <li class="tui">1) 周二到周五：9:00-17:00</li>
+                        <li class="tui">2) 周六、周日：9:00-18:00</li>
+                        <li class="tui">3) 法定节假日：9:00-19:00</li>
+                        <li>每日闭馆时间提前30分钟停止入馆。</li>
+                        <li>3、如有调整，另行通知，敬请关注。</li>
+                    </ul>
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+ <!-- footer-section start -->
+    <footer class="c-platform-footer c-platform-footer--rsi">
+        <div class="l-platform-footer-container">
+            <div class="c-platform-footer__column l-column ">
+                <ul class="c-platform-footer-brand c-platform-footer-brand--sc">
+                    <li class="c-platform-footer-brand__item">
+                        <span class="c-brand c-brand--sc js-footer-open-sub-menu">
+                            <span class="c-brand__logo c-brand__logo--sc">
+                                <span class="js-svg-inliner h-svg h-svg__logo-star-citizen"></span>
+                                <span class="js-svg-inliner h-svg h-svg__logo-star-citizen--fullcolor"></span>
+                            </span>
+
+                            <span class="c-brand__label">
+                                加入<br>我们
+                            </span>
+
+                            <span class="c-brand__arrow">
+                            </span>
+                        </span>
+
+                        <ul class="c-platform-footer-list c-platform-footer-list--sc">
+                            <li class="c-platform-footer-list__item">
+                                <a href="/star-citizen" class="c-platform-footer-link">联系我们</a>
+                            </li>
+
+                            <li class="c-platform-footer-list__item">
+                                <a href="/star-citizen/howto/1" class="c-platform-footer-link">关于我们</a>
+                            </li>
+
+                            <li class="c-platform-footer-list__item">
+                                <a href="/star-citizen/universe" class="c-platform-footer-link">海洋生物</a>
+                            </li>
+
+                            <li class="c-platform-footer-list__item">
+                                <a href="/star-citizen/media" class="c-platform-footer-link">海洋历史</a>
+                            </li>
+
+                            <li class="c-platform-footer-list__item">
+                                <a href="/star-citizen/play-now"
+                                    class="c-platform-footer-link js-google-analytics-event-tracker"
+                                    data-event-category="FlyNow" data-event-label="footerClick">
+                                    更多了解
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+
+            </div>
+
+            <div class="c-platform-footer__column l-column ">
+                <ul class="c-platform-footer-brand c-platform-footer-brand--s42">
+                    <li class="c-platform-footer-brand__item">
+                        <span class="c-brand c-brand--s42 js-footer-open-sub-menu">
+                            <span class="c-brand__logo c-brand__logo--s42">
+                                <span class="js-svg-inliner h-svg h-svg__logo-squadron42"></span>
+                                <span class="js-svg-inliner h-svg h-svg__logo-squadron42--fullcolor"></span>
+                            </span>
+
+                            <span class="c-brand__label">
+                                海洋<br>新闻
+                            </span>
+
+                            <span class="c-brand__arrow">
+                            </span>
+                        </span>
+
+                        <ul class="c-platform-footer-list c-platform-footer-list--s42">
+                            <li class="c-platform-footer-list__item">
+                                <a href="/squadron42" class="c-platform-footer-link">化石</a>
+                            </li>
+
+                            <li class="c-platform-footer-list__item">
+                                <a href="/squadron42#enlist" class="c-platform-footer-link">历史</a>
+                            </li>
+
+                            <li class="c-platform-footer-list__item">
+                                <a href="/squadron42#roadmap" class="c-platform-footer-link">海洋年龄</a>
+                            </li>
+
+                            <li class="c-platform-footer-list__item">
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+
+            <div class="c-platform-footer__column l-column is-active">
+                <ul class="c-platform-footer-brand c-platform-footer-brand--rsi">
+                    <li class="c-platform-footer-brand__item">
+                        <span class="c-brand c-brand--rsi js-footer-open-sub-menu">
+                            <span class="c-brand__logo c-brand__logo--rsi">
+                                <span class="js-svg-inliner h-svg h-svg__logo-rsi"></span>
+                                <span class="js-svg-inliner h-svg h-svg__logo-rsi--fullcolor"></span>
+                            </span>
+                            <span class="c-brand__label">
+                                悠久历史渊源
+                            </span>
+                            <span class="c-brand__arrow">
+                            </span>
+                        </span>
+
+                        <ul class="c-platform-footer-list c-platform-footer-list--rsi">
+                            <li class="c-platform-footer-list__item">
+                                <a href="/" class="c-platform-footer-link">海洋初生</a>
+                            </li>
+                            <li class="c-platform-footer-list__item">
+                                <a href="/comm-link" class="c-platform-footer-link">生命形成</a>
+                            </li>
+
+                            <li class="c-platform-footer-list__item">
+                                <a href="/community" class="c-platform-footer-link">生命发展</a>
+                            </li>
+
+                            <li class="c-platform-footer-list__item">
+                                <a href="/roadmap" class="c-platform-footer-link">现代生命</a>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+
+            <div class="c-platform-footer__column l-column l-column--smaller">
+                <img src="Images/wx_g.jpg" style="margin:50px 30px" width="150px" height="150px" />
+
+            </div>
+
+            <div class="c-platform-footer__column l-column l-column--smaller">
+                <img src="Images/wx_x.jpg" style="margin:50px 20px" width="150px" height="150px" />
+
+            </div>
+
+        </div>
+
+
+    </footer>
+ <!-- footer-section end -->
+</body>
+
+</html>
