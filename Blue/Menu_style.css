@@ -1,0 +1,99 @@
+﻿
+/*头部菜单*/
+#headmeun {
+    position: fixed;
+    top: 0;
+    width: 100%;
+    z-index: 999;
+    height: 75px;
+    clear: both;
+}
+
+/*头部背景颜色*/
+.light {
+    background: rgba(45, 46, 83, 0.90);
+}
+
+.centers {
+    width: 70%;
+    margin: 0px auto;
+    clear: both;
+}
+
+    .centers div {
+        float: left;
+    }
+
+#logo {
+    margin-top: 8px;
+}
+
+/*菜单*/
+#meun {
+    height: 75px;
+    line-height: 75px;
+    margin-left: 120px;
+}
+
+    #meun ul {
+        clear: both;
+    }
+
+        #meun ul li {
+            float: left;
+            margin-left: 35px;
+            display: block;
+            position: relative;
+            /*overflow:hidden;*/
+            height: 60px;
+        }
+
+            #meun ul li a {
+                color: white;
+                font-size: 20px;
+            }
+
+.hover {
+    position: absolute;
+    top: 45px;
+    right: 0px;
+}
+
+.hover1 {
+    position: absolute;
+    top: 45px;
+    right: 0px;
+    display: none;
+    animation: move1 500ms ease 1 normal;
+    animation-fill-mode: both;
+}
+
+@@keyframes move1 {
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
+    }
+}
+
+#meun ul li a:hover + .hover1 {
+    display: block;
+}
+
+#meun ul li a:hover {
+    text-decoration: none;
+    font-weight: bold;
+}
+
+#function {
+    height: 75px;
+    line-height: 75px;
+    margin-left: 120px;
+}
+
+    #function ul li {
+        margin-left: 15px;
+        color: white;
+    }
