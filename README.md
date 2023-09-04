@@ -1,5 +1,8 @@
 # Blue-Oceanographic-Museum
 Call for the protection of the marine environment, combined with JavaScript to achieve many wonderful effects
+
+项目预览：https://kan-lrp.github.io/
+
 首页
 ![image](https://github.com/Kan-lrp/Kan-lrp.github.io/assets/66423949/5c0b42a8-12d3-40e8-a96f-3ca6e1818d2a)
 
