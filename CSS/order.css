@@ -1,0 +1,177 @@
+#bigbox {
+    width: 60%;
+    margin: auto;
+    z-index: 10;
+}
+
+#bigbox:after {
+    content: "";
+    display: block;
+    clear: left;
+}
+
+/*//日历*/
+#calendar div {
+    text-align: center;
+}
+
+#calendar {
+    width: 100%;
+    margin:auto;
+    margin-top: 110px;
+    font-size: 16px;
+}
+
+#calendar_head {
+    display: none;
+}
+
+#calendar_head:after {
+    content: "";
+    display: block;
+    clear: left;
+}
+
+#calendar a {
+    width: 25%;
+    float: left;
+    height: 40px;
+    line-height: 40px;
+}
+
+
+
+#month {
+    width: 50%;
+    float: left;
+    font-size: 20px;
+}
+
+#calendar_week {
+    color: #494781;
+    font-size: 18px;
+    font-weight: 600;
+    margin-left: 10px;
+}
+
+#calendar_week:after {
+    content: "";
+    display: block;
+    clear: left;
+}
+
+.everyday {
+    width: 126px;
+    height: 60px;
+    float: left;
+    line-height: 60px;
+    margin-left: 2px;
+}
+
+.hr {
+    background-color: #afc0da;
+    padding: 2px;
+}
+
+#day {
+    margin-left: 10px;
+}
+
+#day button {
+    margin-top: 10px;
+    margin-bottom: 10px;
+    border: none;
+    background-color: white;
+}
+
+#day .back{
+    background-color:#494781;
+    border: 1px solid #494781;
+    color:white;
+}
+
+#day button:hover {
+    color: white;
+    background-color: #494781;
+    border: 1px solid #494781;
+}
+
+
+
+#day div {
+    width: 126px;
+    height: 60px;
+    float: left;
+    line-height: 60px;
+    margin-left: 2px;
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+
+
+#day:after {
+    content: "";
+    display: block;
+    clear: left;
+}
+
+#day span {
+    font-size: 10px;
+}
+
+#time span,
+button {
+    font-size: 16px;
+    width: 120px;
+    height: 30px;
+    line-height: 30px;
+    margin-left: 10px;
+    margin-top: 20px;
+}
+
+#time span {
+    font-weight: 500;
+    font-size: 18px;
+}
+
+#time button {
+    border: 1px solid #afc0da;
+    background-color: #dee3ee;
+}
+
+#time .back1{
+    background-color:#494781;
+    color:white;
+}
+
+#time button:hover {
+    border: 1px solid #494781;
+}
+
+
+/*弹窗*/
+.modal-content {
+    width: 50%;
+    margin: 200px auto;
+}
+
+#submit {
+    margin-left: 400px;
+}
+
+.hidde {
+    display: none;
+}
+
+#ewm {
+    margin: auto;
+    margin-left: 20px;
+}
+
+.btn-primary {
+    margin-bottom: 50px;
+}
+
+
+
